@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
  * @date 2022/10/19 11:14
  * @description MyBatis拦截器，对SQL语句进行拦截，处理分表信息
  */
-@Intercepts({@Signature(type = Statement.class,method = "prepare",args = {Connection.class, Integer.class})})
+@Intercepts({@Signature(type = StatementHandler.class,method = "prepare",args = {Connection.class, Integer.class})})
 public class DynamicMyBatisPlugin implements Interceptor {
 
     private Pattern pattern = Pattern.compile("(from|into|update)[\\s]{1,}(\\w{1,})", Pattern.CASE_INSENSITIVE);

@@ -71,6 +71,9 @@ public class DataSourceAutoConfig implements EnvironmentAware {
         dbCount = Integer.valueOf(environment.getProperty(prefix+"dbCount"));
         tbCount = Integer.valueOf(environment.getProperty(prefix+"tbCount"));
 
+        // 获取分库分表字段
+        routerKey = environment.getProperty(prefix + "routerKey");
+
         // 分库分表数据源
         String dataSources = environment.getProperty(prefix + "list");
         assert dataSources != null;
@@ -101,7 +104,7 @@ public class DataSourceAutoConfig implements EnvironmentAware {
         dynamicDataSource.setTargetDataSources(targetDataSources);
         dynamicDataSource.setDefaultTargetDataSource(new DriverManagerDataSource(
                 defaultDataSourceConfig.get("url").toString(),
-                dataSourceMap.get("username").toString(),
+                defaultDataSourceConfig.get("username").toString(),
                 defaultDataSourceConfig.get("password").toString()
         ));
         return dynamicDataSource;

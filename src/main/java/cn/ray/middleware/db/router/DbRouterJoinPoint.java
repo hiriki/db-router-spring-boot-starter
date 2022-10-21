@@ -40,10 +40,11 @@ public class DbRouterJoinPoint {
     public Object dbRouter(ProceedingJoinPoint jp, DBRouter dbRouter) {
         // 获取注解中的分库分表字段
         String dbKey = dbRouter.key();
+        // 如果为空,则应用配置文件中的routerKey
+        dbKey = StringUtils.isNotBlank(dbKey) ? dbKey : dbRouterConfig.getRouterKey();
         if (StringUtils.isBlank(dbRouter.key()) && StringUtils.isBlank(dbRouterConfig.getRouterKey())) {
             throw new RuntimeException("annotation DBRouter key is null!");
         }
-        dbKey = StringUtils.isNotBlank(dbKey) ? dbKey : dbRouterConfig.getRouterKey();
 
         // 获取路由属性
         String dbKeyAttr = getAttrValue(dbKey, jp.getArgs());

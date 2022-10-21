@@ -29,14 +29,14 @@ public class DbRouterStrategyHashCode implements IDbRouterStrategy {
         int idx = (size - 1) & (dbKeyAttr.hashCode()^(dbKeyAttr.hashCode() >>> 16));
 
         // 库表索引
-        int dbIdx = idx / dbRouterConfig.getDbCount() - 1;
+        int dbIdx = idx / dbRouterConfig.getTbCount() + 1;
         int tbIdx = idx - dbRouterConfig.getTbCount() * (dbIdx - 1);
 
         // 设置到 ThreadLocal
         DbContextHolder.setDBKey(String.format("%02d",dbIdx));
         DbContextHolder.setTBKey(String.format("%03d",tbIdx));
 
-        logger.debug("数据库路由: dbIdx {} , tbIdx {}",dbIdx,tbIdx);
+        logger.info("数据库路由: dbIdx {} , tbIdx {}",dbIdx,tbIdx);
     }
 
     @Override
