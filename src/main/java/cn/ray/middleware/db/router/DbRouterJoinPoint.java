@@ -11,8 +11,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.InvocationTargetException;
-
 /**
  * @author Ray
  * @date 2022/10/18 14:26
@@ -32,15 +30,25 @@ public class DbRouterJoinPoint {
         this.dbRouterStrategy = dbRouterStrategy;
     }
 
+    /**
+     *  匹配方法被注解DBRouter标注了的所有方法级的JoinPoint
+      */
     @Pointcut("@annotation(cn.ray.middleware.db.router.annotation.DBRouter)")
     public void aopPoint() {
     }
 
+    /**
+     * 声明切入的环绕逻辑（即在方法执行前后切入逻辑）
+     * aopPoint() && @annotation(dbRouter) 表示逻辑必须确保被dbRouter标注，并传入DBRouter
+     * @param jp
+     * @param dbRouter
+     * @return
+     */
     @Around("aopPoint() && @annotation(dbRouter)")
     public Object dbRouter(ProceedingJoinPoint jp, DBRouter dbRouter) {
         // 获取注解中的分库分表字段
         String dbKey = dbRouter.key();
-        // 如果为空,则应用配置文件中的routerKey
+        // 如果为空,则默认应用配置文件中的routerKey
         dbKey = StringUtils.isNotBlank(dbKey) ? dbKey : dbRouterConfig.getRouterKey();
         if (StringUtils.isBlank(dbRouter.key()) && StringUtils.isBlank(dbRouterConfig.getRouterKey())) {
             throw new RuntimeException("annotation DBRouter key is null!");

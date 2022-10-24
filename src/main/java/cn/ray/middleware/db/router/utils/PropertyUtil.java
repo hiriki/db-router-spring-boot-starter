@@ -56,6 +56,8 @@ public class PropertyUtil {
         }
     }
 
+    // spring 2.x
+    // https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/context/properties/bind/Binder.html
     private static Object v2(final Environment environment, final String prefix, final Class<?> targetClass) {
         try {
             Class<?> binderClass = Class.forName("org.springframework.boot.context.properties.bind.Binder");
@@ -66,8 +68,10 @@ public class PropertyUtil {
             // 从当前环境创建一个binder实例
             Object binderObject = getMethod.invoke(null, environment);
             // 获取配置前缀
+            // prefix : ray-db-router.jdbc.datasource.db01、ray-db-router.jdbc.datasource.db02
             String prefixParam = prefix.endsWith(".") ? prefix.substring(0, prefix.length() - 1) : prefix;
             // 将配置与指定类进行绑定
+            // targetClass : Map.Class
             Object bindResultObject = bindMethod.invoke(binderObject, prefixParam, targetClass);
             // 获取绑定结果的get方法
             Method resultGetMethod = bindResultObject.getClass().getDeclaredMethod("get");

@@ -78,11 +78,13 @@ public class DataSourceAutoConfig implements EnvironmentAware {
         String dataSources = environment.getProperty(prefix + "list");
         assert dataSources != null;
         for (String dbInfo : dataSources.split(",")) {
+            // db01、db02
+            // prefix + dbInfo = ray-db-router.jdbc.datasource.db01
             Map<String,Object> dataSourceProps = PropertyUtil.handle(environment,prefix + dbInfo,Map.class);
             dataSourceMap.put(dbInfo,dataSourceProps);
         }
 
-        // 默认数据源
+        // 默认数据源 ray-db-router.jdbc.datasource.default: db00
         String defaultData = environment.getProperty(prefix + "default");
         defaultDataSourceConfig = PropertyUtil.handle(environment,prefix + defaultData,Map.class);
 

@@ -9,7 +9,7 @@ public interface IDbRouterStrategy {
 
     /**
      * 路由计算
-     * @param dbKeyAttr 路由字段
+     * @param dbKeyAttr 路由字段s
      */
     void dbRouter(String dbKeyAttr);
 

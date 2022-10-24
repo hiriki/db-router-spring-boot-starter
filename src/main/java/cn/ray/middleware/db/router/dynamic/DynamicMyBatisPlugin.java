@@ -1,7 +1,6 @@
 package cn.ray.middleware.db.router.dynamic;
 
 import cn.ray.middleware.db.router.DbContextHolder;
-import cn.ray.middleware.db.router.annotation.DBRouter;
 import cn.ray.middleware.db.router.annotation.DBRouterStrategy;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
@@ -16,7 +15,6 @@ import org.apache.ibatis.reflection.SystemMetaObject;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
-import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
