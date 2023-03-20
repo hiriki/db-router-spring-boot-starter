@@ -54,7 +54,7 @@ public class DbRouterJoinPoint {
             throw new RuntimeException("annotation DBRouter key is null!");
         }
 
-        // 获取路由属性
+        // 获取路由字段
         String dbKeyAttr = getAttrValue(dbKey, jp.getArgs());
 
         // 路由策略

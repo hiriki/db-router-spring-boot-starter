@@ -24,7 +24,7 @@ import java.util.Map;
 /**
  * @author Ray
  * @date 2022/10/14 15:25
- * @description
+ * @description 获取配置文件信息并创建、加载数据源
  */
 @Configuration
 public class DataSourceAutoConfig implements EnvironmentAware {
